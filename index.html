@@ -1,507 +1,326 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NEERO — Hydration, Reimagined</title>
+  <meta name="description" content="NEERO — Modern, sustainable water bottles. Hydration reimagined." />
+  <style>
+    /* -----------------------
+       NEERO single-file landing page
+       - Light / modern / minimal
+       - Responsive + accessible basics
+       ------------------------*/
+    :root{
+      --bg:#fafbfd; --card:#ffffff; --muted:#6b7280; --text:#0f172a; --accent:#0284c7;
+      --glass: rgba(255,255,255,0.65);
+      --maxw:1100px; --radius:14px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
 
-    <head>
-        <meta charset="utf-8">
-        <title>Acuas - Drinking Water Website Template</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="" name="keywords">
-        <meta content="" name="description">
+    /* ---------- container ---------- */
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:28px}
 
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet"> 
+    /* ---------- Header ---------- */
+    header{position:fixed;inset:0 0 auto 0;height:76px;display:flex;align-items:center;justify-content:center;padding:0 24px;z-index:60}
+    .nav-inner{width:100%;max-width:var(--maxw);display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:700;letter-spacing:0.02em;font-size:20px}
+    nav{display:flex;gap:28px;align-items:center}
+    nav a{font-size:15px;color:var(--text);opacity:.9;position:relative;padding:6px}
+    nav a::after{content:'';position:absolute;left:0;right:0;height:2px;background:var(--accent);bottom:-6px;transform:scaleX(0);transform-origin:left;transition:transform .22s ease}
+    nav a:hover::after{transform:scaleX(1)}
+    .header-glass{background:transparent;transition:all .28s ease;padding:12px 4px;border-radius:12px}
+    .header-glass.scrolled{background:var(--glass);backdrop-filter:blur(6px);box-shadow:0 6px 22px rgba(16,24,40,.06)}
+    .icons{display:flex;gap:12px;align-items:center}
+    .icon{width:36px;height:36px;border-radius:8px;display:inline-grid;place-items:center}
 
-        <!-- Icon Font Stylesheet -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    /* hamburger mobile */
+    .hamburger{display:none;border:0;background:transparent;font-size:20px;padding:8px}
 
-        <!-- Libraries Stylesheet -->
-        <link href="lib/animate/animate.min.css" rel="stylesheet">
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    /* ---------- Hero ---------- */
+    .hero{padding-top:120px;padding-bottom:40px}
+    .hero-grid{display:grid;grid-template-columns:1fr 480px;gap:48px;align-items:center}
+    .hero h1{font-size:48px;line-height:1.02;margin:0 0 12px}
+    .hero p{color:var(--muted);margin:0 0 18px}
+    .cta{display:inline-block;padding:12px 20px;border-radius:999px;background:#eef6fa;color:var(--accent);border:1px solid rgba(2,132,199,.08);font-weight:600}
+    /* bottle area */
+    .bottle-stage{display:flex;align-items:center;justify-content:center;height:420px}
+    .bottle-3d{width:260px;height:360px;border-radius:22px;background:linear-gradient(180deg,#f8fafb,#eef4f6);display:flex;align-items:center;justify-content:center;box-shadow:0 30px 60px rgba(12,18,30,.06);transition:transform .12s linear;transform-style:preserve-3d}
+    .bottle-neck{width:78%;height:88%;border-radius:28px;background:linear-gradient(180deg,#ffffff,#e9eef2);display:flex;align-items:flex-end;justify-content:center;padding-bottom:26px;position:relative}
+    .bottle-cap{width:54px;height:18px;background:#dfe7ea;border-radius:6px;border:3px solid #cbd6da}
+    .bottle-label{position:absolute;bottom:52px;font-size:14px;color:var(--muted);letter-spacing:0.1em}
 
+    /* ---------- Sections ----------*/
+    section{background:transparent;padding:48px 0}
+    .card{background:var(--card);border-radius:12px;padding:18px}
 
-        <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+    /* products */
+    .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:18px}
+    .product{background:#fff;border-radius:12px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:12px;box-shadow:0 10px 30px rgba(16,24,40,.04);transition:transform .18s ease}
+    .product:hover{transform:translateY(-6px)}
+    .product .mini-bottle{width:120px;height:160px;border-radius:18px;background:#f6fafc}
+    .product h4{margin:8px 0 0;font-size:16px}
+    .btn-ghost{padding:10px 16px;border-radius:10px;border:1px solid rgba(15,23,42,.06);background:transparent}
 
-        <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
-    </head>
+    /* features + know */
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+    .stats{display:flex;gap:22px;flex-wrap:wrap}
+    .stat{background:var(--card);padding:18px;border-radius:12px;min-width:180px;text-align:center}
 
-    <body>
+    /* reviews */
+    .reviews-row{display:grid;grid-template-columns:1fr 320px;gap:28px}
+    .review-cards{display:flex;gap:14px;overflow:hidden}
+    .review{min-width:230px;background:#fff;padding:16px;border-radius:12px;box-shadow:0 8px 20px rgba(16,24,40,.04)}
 
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+    /* CTA big */
+    .big-cta{display:flex;align-items:center;justify-content:space-between;padding:26px;border-radius:12px;background:linear-gradient(180deg,#f7fcff,#f1f9fc);box-shadow:0 10px 30px rgba(2,132,199,.03);margin-top:28px}
+
+    /* footer */
+    footer{padding:36px 0;border-top:1px solid rgba(16,24,40,.03);margin-top:36px}
+    .footer-grid{display:flex;justify-content:space-between;gap:18px;align-items:center}
+
+    /* accessibility / focus */
+    a:focus, button:focus {outline:3px solid rgba(2,132,199,.14);outline-offset:3px}
+
+    /* responsive */
+    @media (max-width:960px){.hero-grid{grid-template-columns:1fr 360px}.products-grid{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}.reviews-row{grid-template-columns:1fr}.header-glass{padding:8px}}
+    @media (max-width:640px){
+      .wrap{padding:16px}.hero-grid{grid-template-columns:1fr}.bottle-stage{height:320px}.product .mini-bottle{width:110px;height:140px}.products-grid{grid-template-columns:1fr}.nav-inner{gap:12px}.hamburger{display:block}.nav-desktop{display:none}
+      .hero h1{font-size:36px}
+      header{height:64px}
+      .brand{font-size:18px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-glass nav-inner" id="site-header">
+      <div class="brand" aria-hidden="false">NEERO</div>
+
+      <nav class="nav-desktop" aria-label="Primary navigation">
+        <a href="#home">Home</a>
+        <a href="#our-story">Our Story</a>
+        <a href="#products">Products</a>
+        <a href="#know">Know Your Neero</a>
+        <a href="#contact">Contact Us</a>
+      </nav>
+
+      <div class="icons">
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap" id="home" aria-labelledby="hero-heading">
+      <div class="hero-grid">
+        <div>
+          <h1 id="hero-heading">Hydration, Reimagined.</h1>
+          <p>Experience purity, performance, and style — in every sip.</p>
+          <a class="cta" href="#products" role="button">Explore NEERO</a>
         </div>
-        <!-- Spinner End -->
 
-        <!-- Navbar & Hero Start -->
-        <div class="container-fluid position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-0">
-                    <h1 class="text-primary"><i class="fas fa-hand-holding-water me-3"></i>Acuas</h1>
-                    <!-- <img src="img/logo.png" alt="Logo"> -->
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="service.html" class="nav-item nav-link">Service</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu m-0">
-                                <a href="product.html" class="dropdown-item">Products</a>
-                                <a href="blog.html" class="dropdown-item">Blog Posts</a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    </div>
-                    <div class="d-none d-xl-flex me-3">
-                        <div class="d-flex flex-column pe-3 border-end border-primary">
-                            <span class="text-body">Get Free Delivery</span>
-                            <a href="tel:+4733378901"><span class="text-primary">Free: + 0123 456 7890</span></a>
-                        </div>
-                    </div>
-                    <a href="https://htmlcodex.com/downloading/?item=3402" class="btn btn-primary rounded-pill d-inline-flex flex-shrink-0 py-2 px-4">Buy Pro Version</a>
-                </div>
-            </nav>
-
-            <!-- Carousel Start -->
-            <div class="carousel-header">
-                <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active"></li>
-                        <li data-bs-target="#carouselId" data-bs-slide-to="1"></li>
-                        <li data-bs-target="#carouselId" data-bs-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active">
-                            <img src="img/carousel-1.jpg" class="img-fluid w-100" alt="Image">
-                            <div class="carousel-caption-1">
-                                <div class="carousel-caption-1-content" style="max-width: 900px;">
-                                    <h4 class="text-white text-uppercase fw-bold mb-4 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1s" style="animation-delay: 1s;" style="letter-spacing: 3px;">Importance life</h4>
-                                    <h1 class="display-2 text-capitalize text-white mb-4 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1.3s" style="animation-delay: 1.3s;">Always Want Safe Water For Healthy Life</h1>
-                                    <p class="mb-5 fs-5 text-white fadeInLeft animated" data-animation="fadeInLeft" data-delay="1.5s" style="animation-delay: 1.5s;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                    </p>
-                                    <div class="carousel-caption-1-content-btn fadeInLeft animated" data-animation="fadeInLeft" data-delay="1.7s" style="animation-delay: 1.7s;">
-                                        <a class="btn btn-primary rounded-pill flex-shrink-0 py-3 px-5 me-2" href="#">Order Now</a>
-                                        <a class="btn btn-secondary rounded-pill flex-shrink-0 py-3 px-5 ms-2" href="#">Free Estimate</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="img/carousel-2.jpg" class="img-fluid w-100" alt="Image">
-                            <div class="carousel-caption-2">
-                                <div class="carousel-caption-2-content" style="max-width: 900px;">
-                                    <h4 class="text-white text-uppercase fw-bold mb-4 fadeInRight animated" data-animation="fadeInRight" data-delay="1s" style="animation-delay: 1s;" style="letter-spacing: 3px;">Importance life</h4>
-                                    <h1 class="display-2 text-capitalize text-white mb-4 fadeInRight animated" data-animation="fadeInRight" data-delay="1.3s" style="animation-delay: 1.3s;">Always Want Safe Water For Healthy Life</h1>
-                                    <p class="mb-5 fs-5 text-white fadeInRight animated" data-animation="fadeInRight" data-delay="1.5s" style="animation-delay: 1.5s;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                    </p>
-                                    <div class="carousel-caption-2-content-btn fadeInRight animated" data-animation="fadeInRight" data-delay="1.7s" style="animation-delay: 1.7s;">
-                                        <a class="btn btn-primary rounded-pill flex-shrink-0 py-3 px-5 me-2" href="#">Order Now</a>
-                                        <a class="btn btn-secondary rounded-pill flex-shrink-0 py-3 px-5 ms-2" href="#">Free Estimate</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon btn btn-primary fadeInLeft animated" aria-hidden="true" data-animation="fadeInLeft" data-delay="1.1s" style="animation-delay: 1.3s;"> <i class="fa fa-angle-left fa-3x"></i></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
-                        <span class="carousel-control-next-icon btn btn-primary fadeInRight animated" aria-hidden="true" data-animation="fadeInLeft" data-delay="1.1s" style="animation-delay: 1.3s;"><i class="fa fa-angle-right fa-3x"></i></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
+        <div class="bottle-stage" aria-hidden="true">
+          <div class="bottle-3d" id="bottle" aria-hidden="true">
+            <div class="bottle-neck">
+              <div class="bottle-label">NEERO</div>
+              <div class="bottle-cap" aria-hidden="true"></div>
             </div>
-            <!-- Carousel End -->
+          </div>
         </div>
-        <!-- Navbar & Hero End -->
+      </div>
+    </section>
 
+    <section class="wrap">
+      <div class="card two-col" id="our-story" tabindex="-1">
+        <div style="padding:20px">
+          <!-- placeholder image block (replace src when you have product images) -->
+          <div style="width:100%;height:260px;background:linear-gradient(180deg,#f6fafc,#eef4f6);border-radius:12px"></div>
+        </div>
 
-        <!-- About Start -->
-        <div class="container-fluid about overflow-hidden py-5">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="about-img rounded h-100">
-                            <img src="img/about.jpg" class="img-fluid rounded h-100 w-100" style="object-fit: cover;" alt="">
-                            <div class="about-exp"><span>20 Years Experiance</span></div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
-                        <div class="about-item">
-                            <h4 class="text-primary text-uppercase">About Us</h4>
-                            <h1 class="display-3 mb-3">We Deliver The Quality Water.</h1>
-                            <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum quidem quas totam nostrum! Maxime rerum voluptatem sed, facilis unde a aperiam nulla voluptatibus excepturi ipsam iusto consequuntur
-                            </p>
-                            <div class="bg-light rounded p-4 mb-4">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="d-flex">
-                                            <div class="pe-4">
-                                                <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;"><i class="fas fa-tint text-white fa-2x"></i></div>
-                                            </div>
-                                            <div class="">
-                                                <a href="#" class="h4 d-inline-block mb-3">Satisfied Customer</a>
-                                                <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas provident maiores quisquam.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bg-light rounded p-4 mb-4">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="d-flex">
-                                            <div class="pe-4">
-                                                <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;"><i class="fas fa-faucet text-white fa-2x"></i></div>
-                                            </div>
-                                            <div class="">
-                                                <a href="#" class="h4 d-inline-block mb-3">Standard Product</a>
-                                                <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas provident maiores quisquam.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#" class="btn btn-secondary rounded-pill py-3 px-5">Read More</a>
-                        </div>
-                    </div>
-                </div>
+        <div style="padding:20px">
+          <h2>Pure water. Pure purpose.</h2>
+          <p style="color:var(--muted)">NEERO combines premium materials with thoughtful design — built to last and kinder to the planet.</p>
+          <ul style="color:var(--muted);margin-top:12px">
+            <li>Eco-safe materials</li>
+            <li>Modern design</li>
+            <li>Built for every lifestyle</li>
+          </ul>
+          <p><a class="btn-ghost" href="#our-story">Our Story</a></p>
+        </div>
+      </div>
+
+      <div style="margin-top:36px">
+        <h3 id="products">Products</h3>
+        <div class="products-grid" aria-hidden="false">
+          <article class="product" tabindex="0" aria-labelledby="p1-title">
+            <div class="mini-bottle" style="background:linear-gradient(180deg,#fff,#f0f4f6)"></div>
+            <h4 id="p1-title">NEERO — 600ml</h4>
+            <p style="color:var(--muted);font-size:13px;margin:0">Sleek stainless steel, vacuum insulated.</p>
+            <p style="margin-top:10px"><a class="btn-ghost" href="#product-600">View</a></p>
+          </article>
+
+          <article class="product" tabindex="0" aria-labelledby="p2-title">
+            <div class="mini-bottle" style="background:linear-gradient(180deg,#f7faf9,#eef6f8)"></div>
+            <h4 id="p2-title">NEERO — 750ml</h4>
+            <p style="color:var(--muted);font-size:13px;margin:0">Larger capacity with durable cap.</p>
+            <p style="margin-top:10px"><a class="btn-ghost" href="#product-750">View</a></p>
+          </article>
+
+          <article class="product" tabindex="0" aria-labelledby="p3-title">
+            <div class="mini-bottle" style="background:linear-gradient(180deg,#eef2f3,#e2e6ea)"></div>
+            <h4 id="p3-title">NEERO — Bundle</h4>
+            <p style="color:var(--muted);font-size:13px;margin:0">Save with a bundled pack.</p>
+            <p style="margin-top:10px"><a class="btn-ghost" href="#product-bundle">View</a></p>
+          </article>
+        </div>
+        <p style="text-align:center;margin-top:18px"><a class="btn-ghost" href="#products">See All Products</a></p>
+      </div>
+
+      <div style="margin-top:36px">
+        <h3>Know Your Neero</h3>
+        <div class="card" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+          <div style="flex:1;min-width:260px">
+            <p style="color:var(--muted)">Hover or scroll to explore the bottle—cap, filter, and body materials explained.</p>
+            <ul style="color:var(--muted)">
+              <li>Cap: Leak-safe & ergonomic</li>
+              <li>Body: Double-wall insulation</li>
+              <li>Finish: Soft-touch matte</li>
+            </ul>
+          </div>
+          <div style="width:240px;text-align:center">
+            <div class="mini-bottle" style="width:140px;height:200px;margin:0 auto;border-radius:18px;background:linear-gradient(180deg,#fff,#eef4f6)"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:36px">
+        <h3>What our customers say</h3>
+        <div class="reviews-row" style="margin-top:12px">
+          <div>
+            <div class="review-cards" id="review-strip" aria-live="polite">
+              <div class="review" role="article" aria-label="Review 1">
+                <strong>4.8 / 5</strong>
+                <p style="color:var(--muted)">"Stylish and functional, love the feel." — Sarah L.</p>
+              </div>
+              <div class="review" role="article" aria-label="Review 2">
+                <strong>5 / 5</strong>
+                <p style="color:var(--muted)">"Keeps drinks cold all day, excellent build." — Arjun K.</p>
+              </div>
+              <div class="review" role="article" aria-label="Review 3">
+                <strong>4.7 / 5</strong>
+                <p style="color:var(--muted)">"Great customer service and fast shipping." — Meera P.</p>
+              </div>
             </div>
-        </div>
-        <!-- About End -->
-
-        <!-- Service Start -->
-        <div class="container-fluid service bg-light overflow-hidden py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h4 class="text-uppercase text-primary">Our Service</h4>
-                    <h1 class="display-3 text-capitalize mb-3">Protect Your Family with Best Water</h1>
-                </div>
-                <div class="row gx-0 gy-4 align-items-center">
-                    <div class="col-lg-6 col-xl-4 wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="service-item rounded p-4 mb-4">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="service-content text-end">
-                                            <a href="#" class="h4 d-inline-block mb-3">Residential Waters</a>
-                                            <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas provident maiores quisquam.</p>
-                                        </div>
-                                        <div class="ps-4">
-                                            <div class="service-btn"><i class="fas fa-hand-holding-water text-white fa-2x"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-item rounded p-4 mb-4">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="service-content text-end">
-                                            <a href="#" class="h4 d-inline-block mb-3">Commercial Waters</a>
-                                            <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas provident maiores quisquam.</p>
-                                        </div>
-                                        <div class="ps-4">
-                                            <div class="service-btn"><i class="fas fa-dumpster-fire text-white fa-2x"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-item rounded p-4 mb-0">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="service-content text-end">
-                                            <a href="#" class="h4 d-inline-block mb-3">Filtration Plants</a>
-                                            <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas provident maiores quisquam.</p>
-                                        </div>
-                                        <div class="ps-4">
-                                            <div class="service-btn"><i class="fas fa-filter text-white fa-2x"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="bg-transparent">
-                            <img src="img/water.png" class="img-fluid w-100" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4 wow fadeInRight" data-wow-delay="0.2s">
-                        <div class="service-item rounded p-4 mb-4">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="pe-4">
-                                            <div class="service-btn"><i class="fas fa-assistive-listening-systems text-white fa-2x"></i></div>
-                                        </div>
-                                        <div class="service-content">
-                                            <a href="#" class="h4 d-inline-block mb-3">Water Softening</a>
-                                            <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas provident maiores quisquam.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-item rounded p-4 mb-4">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="pe-4">
-                                            <div class="service-btn"><i class="fas fa-recycle text-white fa-2x"></i></div>
-                                        </div>
-                                        <div class="service-content">
-                                            <a href="#" class="h4 d-inline-block mb-3">Market Research</a>
-                                            <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas provident maiores quisquam.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-item rounded p-4 mb-0">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="pe-4">
-                                            <div class="service-btn"><i class="fas fa-project-diagram text-white fa-2x"></i></div>
-                                        </div>
-                                        <div class="service-content">
-                                            <a href="#" class="h4 d-inline-block mb-3">Project Planning</a>
-                                            <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas provident maiores quisquam.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div>
+            <div class="stat" role="status" aria-atomic="true">
+              <strong>100% recyclable materials</strong>
+              <p style="color:var(--muted);margin:8px 0 0">Designed with the planet in mind.</p>
             </div>
+          </div>
         </div>
-        <!-- Service End -->
+      </div>
 
-
-        <!-- Products Start -->
-        <div class="container-fluid product py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h4 class="text-uppercase text-primary">Our Products</h4>
-                    <h1 class="display-3 text-capitalize mb-3">We Deliver Best Quality Bottle Packs.</h1>
-                </div>
-                <div class="row g-4 justify-content-center">
-                    <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="product-item">
-                            <img src="img/product-3.png" class="img-fluid w-100 rounded-top"  alt="Image">
-                            <div class="product-content bg-light text-center rounded-bottom p-4">
-                                <p>2L 1 Bottle</p>
-                                <a href="#" class="h4 d-inline-block mb-3">Mineral Water Bottle</a>
-                                <p class="fs-4 text-primary mb-3">$35:00</p>
-                                <a href="#" class="btn btn-secondary rounded-pill py-2 px-4">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="product-item">
-                            <img src="img/product-2.png" class="img-fluid w-100 rounded-top"  alt="Image">
-                            <div class="product-content bg-light text-center rounded-bottom p-4">
-                                <p>4L 2 Bottles</p>
-                                <a href="#" class="h4 d-inline-block mb-3">RO Water Bottle</a>
-                                <p class="fs-4 text-primary mb-3">$70:00</p>
-                                <a href="#" class="btn btn-secondary rounded-pill py-2 px-4">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="product-item">
-                            <img src="img/product-1.png" class="img-fluid w-100 rounded-top"  alt="Image">
-                            <div class="product-content bg-light text-center rounded-bottom p-4">
-                                <p>6L 3 Bottles</p>
-                                <a href="#" class="h4 d-inline-block mb-3">UV Water Bottle</a>
-                                <p class="fs-4 text-primary mb-3">$100:00</p>
-                                <a href="#" class="btn btn-secondary rounded-pill py-2 px-4">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div style="margin-top:36px">
+        <div class="big-cta">
+          <div>
+            <h3 style="margin:0">Hydrate smarter with NEERO.</h3>
+            <p style="margin:6px 0 0;color:var(--muted)">Get premium build quality and sustainable design.</p>
+          </div>
+          <div>
+            <a class="cta" href="#products">Get Yours Now</a>
+          </div>
         </div>
-        <!-- Products End -->
+      </div>
 
+    </section>
 
-        <!-- Blog Start -->
-        <div class="container-fluid bg-light blog py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h4 class="text-uppercase text-primary">Our Blog</h4>
-                    <h1 class="display-3 text-capitalize mb-3">Latest Blog & News</h1>
-                </div>
-                <div class="row g-4 justify-content-center">
-                    <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="blog-item">
-                            <div class="blog-img">
-                                <img src="img/blog-1.jpg" class="img-fluid rounded-top w-100" alt="">
-                                <div class="blog-date px-4 py-2"><i class="fa fa-calendar-alt me-1"></i> Jan 12 2025</div>
-                            </div>
-                            <div class="blog-content rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde</a>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, officiis?</p>
-                                <a href="#" class="fw-bold text-secondary">Read More <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="blog-item">
-                            <div class="blog-img">
-                                <img src="img/blog-2.jpg" class="img-fluid rounded-top w-100" alt="">
-                                <div class="blog-date px-4 py-2"><i class="fa fa-calendar-alt me-1"></i> Jan 12 2025</div>
-                            </div>
-                            <div class="blog-content rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde</a>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, officiis?</p>
-                                <a href="#" class="fw-bold text-secondary">Read More <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="blog-item">
-                            <div class="blog-img">
-                                <img src="img/blog-3.jpg" class="img-fluid rounded-top w-100" alt="">
-                                <div class="blog-date px-4 py-2"><i class="fa fa-calendar-alt me-1"></i> Jan 12 2025</div>
-                            </div>
-                            <div class="blog-content rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde</a>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, officiis?</p>
-                                <a href="#" class="fw-bold text-secondary">Read More <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Blog End -->
+    <footer class="wrap" id="contact">
+      <div class="footer-grid" role="contentinfo">
+        <div style="font-weight:700">NEERO</div>
+        <div style="color:var(--muted)">Home • Our Story • Products • Know Your Neero • Contact Us</div>
+        <div style="text-align:right;color:var(--muted)">© 2025 NEERO • Made with 💙</div>
+      </div>
+    </footer>
 
-        <!-- Footer Start -->
-        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
-            <div class="container py-5">
-                <div class="row g-5 mb-5 align-items-center">
-                    <div class="col-lg-7">
-                        <div class="position-relative mx-auto">
-                            <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Email address to Subscribe">
-                            <button type="button" class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">Subscribe</button>
-                        </div>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
-                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-5">
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <div class="footer-item">
-                                <h3 class="text-white mb-4"><i class="fas fa-hand-holding-water text-primary me-3"></i>Acuas</h3>
-                                <p class="mb-3">Dolor amet sit justo amet elitr clita ipsum elitr est.Lorem ipsum dolor sit amet, consectetur adipiscing elit consectetur adipiscing elit.</p>
-                            </div>
-                            <div class="position-relative">
-                                <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
-                                <button type="button" class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">SignUp</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <h4 class="text-white mb-4">About Us</h4>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Why Choose Us</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Free Water Bottles</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Water Dispensers</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Bottled Water Coolers</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Contact us</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Terms & Conditions</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <h4 class="text-white mb-4">Business Hours</h4>
-                            <div class="mb-3">
-                                <h6 class="text-muted mb-0">Mon - Friday:</h6>
-                                <p class="text-white mb-0">09.00 am to 07.00 pm</p>
-                            </div>
-                            <div class="mb-3">
-                                <h6 class="text-muted mb-0">Saturday:</h6>
-                                <p class="text-white mb-0">10.00 am to 05.00 pm</p>
-                            </div>
-                            <div class="mb-3">
-                                <h6 class="text-muted mb-0">Vacation:</h6>
-                                <p class="text-white mb-0">All Sunday is our vacation</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <h4 class="text-white mb-4">Contact Info</h4>
-                            <a href="#"><i class="fa fa-map-marker-alt me-2"></i> 123 Street, New York, USA</a>
-                            <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i> info@example.com</a>
-                            <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i> info@example.com</a>
-                            <a href="tel:+012 345 67890"><i class="fas fa-phone me-2"></i> +012 345 67890</a>
-                            <a href="tel:+012 345 67890" class="mb-3"><i class="fas fa-print me-2"></i> +012 345 67890</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
-        
-        <!-- Copyright Start -->
-        <div class="container-fluid copyright py-4">
-            <div class="container">
-                <div class="row g-4 align-items-center">
-                    <div class="col-md-6 text-center text-md-start mb-md-0">
-                        <span class="text-body"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end text-body">
-                        <!--/*** The author’s attribution link must remain intact in the template. ***/-->
-                        <!--/*** If you wish to remove this credit link, please purchase the Pro Version . ***/-->
-                        Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Copyright End -->
+  </main>
 
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', ()=>{
+      if(window.scrollY>40) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+    });
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+    // Bottle rotate on scroll (parallax-like interaction)
+    const bottle = document.getElementById('bottle');
+    function updateBottle(){
+      if(!bottle) return;
+      // rotate based on viewport scroll position for subtle effect
+      const rot = (window.scrollY/6) % 360;
+      // small tilt based on bottle position in viewport
+      const rect = bottle.getBoundingClientRect();
+      const tilt = ((rect.top - window.innerHeight/2) / 40);
+      bottle.style.transform = `rotateY(${rot}deg) translateZ(0) rotateX(${tilt}deg)`;
+    }
+    window.addEventListener('scroll', updateBottle);
+    window.addEventListener('resize', updateBottle);
+    updateBottle();
 
-        
-    <!-- JavaScript Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    
+    // Simple reviews auto-scroll (loops)
+    const strip = document.getElementById('review-strip');
+    if(strip){
+      let rPos = 0;
+      // duplicate children to enable smooth loop if desired (keeps visuals continuous)
+      const clones = Array.from(strip.children).map(n => n.cloneNode(true));
+      clones.forEach(c => strip.appendChild(c));
+      setInterval(()=>{
+        rPos -= 244; // approximate card width + gap
+        // reset when beyond half content (original length)
+        const half = strip.scrollWidth / 2;
+        if(Math.abs(rPos) >= half) rPos = 0;
+        strip.style.transform = `translateX(${rPos}px)`;
+        strip.style.transition = 'transform .9s ease';
+      }, 3500);
+    }
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-    </body>
+    // Mobile hamburger: basic slide-in drawer
+    const hamburger = document.getElementById('hamburger');
+    hamburger?.addEventListener('click', ()=>{
+      // prevent double-open
+      if(document.getElementById('mobile-drawer')) return;
+      const menu = document.createElement('div');
+      menu.id = 'mobile-drawer';
+      menu.style.position='fixed';menu.style.inset='0';menu.style.background='rgba(15,23,42,.35)';menu.style.zIndex=80;
+      menu.innerHTML=`
+        <div role="dialog" aria-modal="true" aria-label="Mobile menu" style="position:fixed;right:0;top:0;width:320px;height:100%;background:#fff;padding:24px;box-shadow:-8px 0 24px rgba(2,6,23,.12)">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style='font-weight:700'>NEERO</div>
+            <button id='closex' aria-label='Close menu' style='font-size:20px;background:none;border:none;padding:6px'>×</button>
+          </div>
+          <nav style='margin-top:24px;display:flex;flex-direction:column;gap:16px'>
+            <a href='#home' style='font-size:18px'>Home</a>
+            <a href='#our-story' style='font-size:18px'>Our Story</a>
+            <a href='#products' style='font-size:18px'>Products</a>
+            <a href='#know' style='font-size:18px'>Know Your Neero</a>
+            <a href='#contact' style='font-size:18px'>Contact</a>
+          </nav>
+        </div>`;
+      document.body.appendChild(menu);
+      document.body.style.overflow='hidden';
+      hamburger.setAttribute('aria-expanded','true');
 
+      menu.querySelector('#closex').addEventListener('click', ()=>{
+        document.body.removeChild(menu);
+        document.body.style.overflow='auto';
+        hamburger.setAttribute('aria-expanded','false');
+      });
+    });
+  </script>
+</body>
 </html>

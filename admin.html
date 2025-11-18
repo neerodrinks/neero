@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Neero Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: Poppins, sans-serif; background:#f4f8fb; margin:0; padding:20px; color:#1e415b; }
+.card { max-width:1000px; margin:0 auto; background:white; padding:20px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.05); }
+label { display:block; margin-top:10px; font-weight:600; }
+input, textarea, select { width:100%; padding:10px; margin-top:6px; border-radius:8px; border:1px solid #dce9ee; font-size:14px; }
+.button-row { margin-top:12px; display:flex; gap:8px; }
+button { padding:10px 14px; border-radius:8px; border:none; cursor:pointer; background:#9cbfcf; color:white; }
+.button-secondary { background:#f4f8fb; color:#1e415b; border:1px solid #dce9ee; }
+.table { width:100%; border-collapse:collapse; margin-top:16px; }
+.table th, .table td { padding:8px; border-bottom:1px solid #eef6fb; text-align:left; }
+.small { font-size:13px; color:#597a8f; }
+.preview { max-width:100%; margin-top:8px; border-radius:8px; }
+.actions { display:flex; gap:8px; }
+a.download-link { display:inline-block; margin-top:8px; text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Neero — Admin Panel</h1>
+  <p class="small">Edit manufacturer details (plant code, name, license, address, contact). Use "Download plants.json" to save changes and upload that JSON to your server.</p>
+
+  <label>Plant Code</label>
+  <input id="code" placeholder="e.g. MUM">
+
+  <label>Manufacturer Name</label>
+  <input id="name">
+
+  <label>FSSAI License Number</label>
+  <input id="license">
+
+  <label>Address</label>
+  <textarea id="address" rows="3"></textarea>
+
+  <label>Contact Number</label>
+  <input id="contact">
+
+  <div class="button-row">
+    <button id="saveBtn">Save / Update</button>
+    <button id="clearBtn" class="button-secondary">Clear</button>
+    <button id="downloadBtn">Download plants.json</button>
+    <button id="resetBtn" class="button-secondary">Reset Defaults</button>
+  </div>
+
+  <h3 style="margin-top:18px;">Existing Plants</h3>
+  <table class="table" id="plantsTable">
+    <thead><tr><th>Code</th><th>Name</th><th>License</th><th>Contact</th><th>Actions</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3 style="margin-top:18px;">Bottle Image</h3>
+  <p class="small">Upload a bottle image (nee.png). After selecting, click "Download Image" to save the file and then upload to your server.</p>
+  <input type="file" id="imgInput" accept="image/*">
+  <div id="imgPreview"></div>
+  <a id="imgDownload" class="download-link"></a>
+</div>
+
+<script>
+let defaultPlants = {"MUM": {"name": "Neero Beverages Pvt Ltd - Mumbai Unit", "license": "FSSAI MH-123456", "address": "MIDC Industrial Area, Andheri East, Mumbai, Maharashtra", "contact": "+91 88990 11223"}, "BLR": {"name": "Neero Beverages Pvt Ltd - Bengaluru Unit", "license": "FSSAI KA-998877", "address": "Bommasandra Industrial Estate, Bengaluru, Karnataka", "contact": "+91 88221 33445"}, "DEL": {"name": "Neero Beverages Pvt Ltd - Delhi Unit", "license": "FSSAI DL-556677", "address": "Patparganj Industrial Area, Delhi", "contact": "+91 88442 55667"}, "HYD": {"name": "Neero Beverages Pvt Ltd - Hyderabad Unit", "license": "FSSAI TS-223344", "address": "Miyapur Industrial Zone, Hyderabad, Telangana", "contact": "+91 88001 22334"}, "CHN": {"name": "Neero Beverages Pvt Ltd - Chennai Unit", "license": "FSSAI TN-112233", "address": "Pondy Bazaar Industrial Park, Chennai, Tamil Nadu", "contact": "+91 88777 66554"}, "KOL": {"name": "Neero Beverages Pvt Ltd - Kolkata Unit", "license": "FSSAI WB-445566", "address": "Howrah Industrial Estate, Kolkata, West Bengal", "contact": "+91 80011 22334"}, "NGP": {"name": "Neero Beverages Pvt Ltd - Nagpur Unit", "license": "FSSAI MH-334455", "address": "Industrial Area, Nagpur, Maharashtra", "contact": "+91 81000 55443"}, "PUN": {"name": "Neero Beverages Pvt Ltd - Pune Unit", "license": "FSSAI MH-667788", "address": "Hinjewadi Industrial Park, Pune, Maharashtra", "contact": "+91 77001 33445"}};
+let plants = JSON.parse(JSON.stringify(defaultPlants));
+
+function renderPlants(){
+  const tbody = document.querySelector('#plantsTable tbody');
+  tbody.innerHTML = '';
+  Object.keys(plants).sort().forEach(code=>{
+    const p = plants[code];
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td><strong>'+code+'</strong></td><td>'+escapeHtml(p.name)+'</td><td>'+escapeHtml(p.license)+'</td><td>'+escapeHtml(p.contact)+'</td><td><div class="actions"><button data-code="'+code+'" class="editBtn">Edit</button><button data-code="'+code+'" class="delBtn button-secondary">Delete</button></div></td>';
+    tbody.appendChild(tr);
+  });
+  document.querySelectorAll('.editBtn').forEach(b=>b.addEventListener('click', e=>{
+    const code = e.target.dataset.code;
+    document.getElementById('code').value = code;
+    document.getElementById('name').value = plants[code].name;
+    document.getElementById('license').value = plants[code].license;
+    document.getElementById('address').value = plants[code].address;
+    document.getElementById('contact').value = plants[code].contact;
+  }));
+  document.querySelectorAll('.delBtn').forEach(b=>b.addEventListener('click', e=>{
+    const code = e.target.dataset.code;
+    if(confirm('Delete ' + code + '?')){ delete plants[code]; renderPlants(); }
+  }));
+}
+
+function escapeHtml(text){
+  if(!text) return '';
+  return text.replace(/[&<>"]/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]; });
+}
+
+document.getElementById('saveBtn').addEventListener('click', ()=>{
+  const code = document.getElementById('code').value.trim().toUpperCase();
+  if(!code){ alert('Enter plant code'); return; }
+  plants[code] = {
+    name: document.getElementById('name').value,
+    license: document.getElementById('license').value,
+    address: document.getElementById('address').value,
+    contact: document.getElementById('contact').value
+  };
+  renderPlants();
+  alert('Saved');
+  document.getElementById('code').value=''; document.getElementById('name').value=''; document.getElementById('license').value=''; document.getElementById('address').value=''; document.getElementById('contact').value='';
+});
+
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  document.getElementById('code').value=''; document.getElementById('name').value=''; document.getElementById('license').value=''; document.getElementById('address').value=''; document.getElementById('contact').value='';
+});
+
+document.getElementById('downloadBtn').addEventListener('click', ()=>{
+  const data = JSON.stringify(plants, null, 2);
+  const url = 'data:application/json;charset=utf-8,' + encodeURIComponent(data);
+  const a = document.createElement('a'); a.href = url; a.download = 'plants.json'; document.body.appendChild(a); a.click(); a.remove();
+});
+
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  if(confirm('Reset to default sample data?')){ plants = JSON.parse(JSON.stringify(defaultPlants)); renderPlants(); }
+});
+
+// Image upload + download
+document.getElementById('imgInput').addEventListener('change', (e)=>{
+  const f = e.target.files[0];
+  if(!f) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const dataUrl = ev.target.result;
+    document.getElementById('imgPreview').innerHTML = '<img class="preview" src="'+dataUrl+'">';
+    const a = document.getElementById('imgDownload');
+    a.href = dataUrl; a.download = f.name || 'nee.png'; a.textContent = 'Download Image';
+  };
+  reader.readAsDataURL(f);
+});
+
+renderPlants();
+</script>
+
+  <hr style="margin-top:20px;">
+  <h3>Batch Manager (per Plant)</h3>
+  <p class="small">Select a plant code to view/add batches produced in that plant. You can download the batches.json after editing and upload it to your server.</p>
+
+  <label>Choose Plant</label>
+  <select id="batchPlant" style="width:200px; margin-top:6px;"></select>
+
+  <div id="batchControls" style="margin-top:10px;">
+    <label>Batch Number</label>
+    <input id="batchCode" placeholder="e.g. MUM20251103R02" style="width:60%;">
+
+    <label>Manufacturing Date</label>
+    <input id="batchDate" type="date" style="width:60%;">
+
+    <div class="button-row">
+      <button id="addBatchBtn">Add Batch</button>
+      <button id="downloadBatchesBtn" class="button-secondary">Download batches.json</button>
+      <button id="clearBatchBtn" class="button-secondary">Clear</button>
+    </div>
+
+    <h4 style="margin-top:16px;">Existing Batches for Selected Plant</h4>
+    <table class="table" id="batchesTable"><thead><tr><th>Batch</th><th>MFG Date</th><th>Actions</th></tr></thead><tbody></tbody></table>
+  </div>
+
+</body>
+</html>
+
+<script>
+// Load default plants from existing admin.js variable defaultPlants if present, else fetch plants.json
+let batches = PLACEHOLDER_BATCHES;
+
+function ensureBatchPlantSelect(){
+  const sel = document.getElementById('batchPlant');
+  sel.innerHTML = '';
+  const plantKeys = Object.keys(defaultPlants || {});
+  if(plantKeys.length === 0){
+    // try fetch plants.json
+    fetch('plants.json').then(r=>r.json()).then(data=>{
+      Object.keys(data).forEach(k=>{ const o = document.createElement('option'); o.value=k; o.textContent=k + ' — ' + data[k].name; sel.appendChild(o); });
+      renderBatches();
+    }).catch(()=>{ sel.innerHTML = '<option value="">No plants</option>'; });
+    return;
+  }
+  plantKeys.sort().forEach(k=>{
+    const o = document.createElement('option');
+    o.value = k;
+    o.textContent = k + ' — ' + defaultPlants[k].name;
+    sel.appendChild(o);
+  });
+  renderBatches();
+}
+
+function renderBatches(){
+  const sel = document.getElementById('batchPlant');
+  const tbody = document.querySelector('#batchesTable tbody');
+  tbody.innerHTML = '';
+  const plant = sel.value;
+  if(!plant) return;
+  const list = (batches[plant] || []);
+  list.forEach((b, idx)=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td>'+escapeHtml(b.batch)+'</td><td>'+escapeHtml(b.mfg)+'</td><td><button class="button-secondary" data-idx="'+idx+'" data-plant="'+plant+'">Delete</button></td>';
+    tbody.appendChild(tr);
+  });
+  // attach delete handlers
+  tbody.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      const idx = parseInt(e.target.dataset.idx);
+      const plant = e.target.dataset.plant;
+      if(confirm('Delete '+batches[plant][idx].batch+' ?')){ batches[plant].splice(idx,1); renderBatches(); }
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  ensureBatchPlantSelect();
+  document.getElementById('batchPlant').addEventListener('change', renderBatches);
+  document.getElementById('addBatchBtn').addEventListener('click', ()=>{
+    const plant = document.getElementById('batchPlant').value;
+    const batchCode = document.getElementById('batchCode').value.trim().toUpperCase();
+    const batchDate = document.getElementById('batchDate').value;
+    if(!plant){ alert('Select plant'); return; }
+    if(!batchCode){ alert('Enter batch code'); return; }
+    if(!batchDate){ alert('Select manufacturing date'); return; }
+    batches[plant] = batches[plant] || [];
+    // prevent duplicates
+    if(batches[plant].some(b=>b.batch === batchCode)){ alert('Batch already exists for this plant'); return; }
+    batches[plant].push({batch: batchCode, mfg: batchDate});
+    renderBatches();
+    document.getElementById('batchCode').value=''; document.getElementById('batchDate').value='';
+  });
+  document.getElementById('downloadBatchesBtn').addEventListener('click', ()=>{
+    const data = JSON.stringify(batches, null, 2);
+    const url = 'data:application/json;charset=utf-8,' + encodeURIComponent(data);
+    const a = document.createElement('a'); a.href = url; a.download = 'batches.json'; document.body.appendChild(a); a.click(); a.remove();
+  });
+  document.getElementById('clearBatchBtn').addEventListener('click', ()=>{
+    document.getElementById('batchCode').value=''; document.getElementById('batchDate').value='';
+  });
+});
+</script>

@@ -1,0 +1,50 @@
+{
+  "MUM": {
+    "name": "Neero Beverages Pvt Ltd - Mumbai Unit",
+    "license": "FSSAI MH-123456",
+    "address": "MIDC Industrial Area, Andheri East, Mumbai, Maharashtra",
+    "contact": "+91 88990 11223"
+  },
+  "BLR": {
+    "name": "Neero Beverages Pvt Ltd - Bengaluru Unit",
+    "license": "FSSAI KA-998877",
+    "address": "Bommasandra Industrial Estate, Bengaluru, Karnataka",
+    "contact": "+91 88221 33445"
+  },
+  "DEL": {
+    "name": "Neero Beverages Pvt Ltd - Delhi Unit",
+    "license": "FSSAI DL-556677",
+    "address": "Patparganj Industrial Area, Delhi",
+    "contact": "+91 88442 55667"
+  },
+  "HYD": {
+    "name": "Neero Beverages Pvt Ltd - Hyderabad Unit",
+    "license": "FSSAI TS-223344",
+    "address": "Miyapur Industrial Zone, Hyderabad, Telangana",
+    "contact": "+91 88001 22334"
+  },
+  "CHN": {
+    "name": "Neero Beverages Pvt Ltd - Chennai Unit",
+    "license": "FSSAI TN-112233",
+    "address": "Pondy Bazaar Industrial Park, Chennai, Tamil Nadu",
+    "contact": "+91 88777 66554"
+  },
+  "KOL": {
+    "name": "Neero Beverages Pvt Ltd - Kolkata Unit",
+    "license": "FSSAI WB-445566",
+    "address": "Howrah Industrial Estate, Kolkata, West Bengal",
+    "contact": "+91 80011 22334"
+  },
+  "NGP": {
+    "name": "Neero Beverages Pvt Ltd - Nagpur Unit",
+    "license": "FSSAI MH-334455",
+    "address": "Industrial Area, Nagpur, Maharashtra",
+    "contact": "+91 81000 55443"
+  },
+  "PUN": {
+    "name": "Neero Beverages Pvt Ltd - Pune Unit",
+    "license": "FSSAI MH-667788",
+    "address": "Hinjewadi Industrial Park, Pune, Maharashtra",
+    "contact": "+91 77001 33445"
+  }
+}

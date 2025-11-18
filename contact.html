@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Contact Us - Neero</title>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom, #f4f8fb, #f4f8fb);
+        color: #1e415b;
+        text-align: center;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 28px 0;
+    }
+    header .logo {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: #02122b;
+    }
+    header nav a {
+        text-decoration: none;
+        color: #1e415b;
+        margin-left: 28px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+    header nav a:hover { text-decoration: underline; }
+    .hero {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 50px 0;
+        text-align: left;
+    }
+    .hero-text { max-width: 520px; }
+    .hero-text h1 {
+        font-size: 56px;
+        font-weight: 600;
+        line-height: 1.1;
+        margin: 0;
+        color: #02122b;
+    }
+    .hero-buttons { margin-top: 28px; }
+    .hero-buttons .btn {
+        text-decoration: none;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-size: 15px;
+        font-weight: 600;
+        margin-right: 12px;
+        transition: transform 0.15s;
+    }
+    .hero-buttons .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background-color: #9cbfcf; color: white; }
+    .btn-secondary {
+        background-color: #f4f8fb;
+        color: #1e415b;
+        border: 1px solid #dce9ee;
+    }
+    .hero-image img { max-width: 350px; margin-left: 40px; }
+    .features {
+        background-color: #9cbfcf;
+        border-radius: 16px;
+        padding: 28px;
+        margin-top: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .feature-item { display:flex; flex-direction:column; align-items:center; max-width:200px; }
+    .feature-item p { margin-top: 14px; font-size:15px; font-weight:500; color:#1e415b; }
+    .cta { padding: 80px 0; }
+    .cta h2 { font-size: 40px; font-weight:600; color:#02122b; margin: 0; }
+    footer { padding: 30px 0; color: #597a8f; font-size:14px; }
+    .content { text-align: left; padding: 40px; background: #f4f8fb; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.04); margin-top: 30px; }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <header>
+    <div class="logo">NEERO</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="manufacturing-details.html">Know Your Neero</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="about.html">About</a>
+    </nav>
+</header>
+
+
+        <div class="content">
+            <h1>Contact Us</h1>
+            <p>We're here to help. Reach out for orders, questions or feedback.</p>
+
+            <p><strong>Email:</strong> support@neero.example</p>
+            <p><strong>Phone:</strong> +91 98765 43210</p>
+            <p><strong>Address:</strong> Neero Beverages, Industrial Estate, City, State, India</p>
+
+            <h3>Send a message</h3>
+            <form action="#" method="post">
+                <label>Name<br><input type="text" name="name" style="width:100%; padding:8px; margin-top:6px;"></label><br><br>
+                <label>Email<br><input type="email" name="email" style="width:100%; padding:8px; margin-top:6px;"></label><br><br>
+                <label>Message<br><textarea name="message" rows="6" style="width:100%; padding:8px; margin-top:6px;"></textarea></label><br><br>
+                <button type="submit" style="padding:10px 18px; border-radius:8px; background:#9cbfcf; color:white; border:none;">Send</button>
+            </form>
+        </div>
+
+        <footer>
+            &copy; 2025 Neero Beverages
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Know Your Neero</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+body { font-family:Poppins, sans-serif; background:#f4f8fb; margin:0; color:#1e415b; }
+.container { max-width:1000px; margin:20px auto; padding:20px; }
+.card { background:white; padding:20px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.04); }
+input, button { padding:10px; border-radius:8px; border:1px solid #dce9ee; }
+button {
+   background:#9cbfcf; 
+   color:white; 
+   border:none; 
+   cursor:pointer; 
+  }
+.result {
+   margin-top:16px; 
+  }
+.label { font-weight:600; display:block; margin-top:10px; }
+.small { font-size:13px; color:#597a8f; }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 28px 0;
+    }
+    header .logo {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: #02122b;
+    }
+    header nav a {
+        text-decoration: none;
+        color: #1e415b;
+        margin-left: 28px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+    header nav a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">NEERO</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="manufacturing-details.html">Know Your Neero</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="about.html">About</a>
+    </nav>
+</header>
+  <div class="card">
+    <h1>Know Your Neero</h1>
+    <p class="small">Enter the batch number and manufacturing date to see detailed manufacturer information.</p>
+
+    <label class="label">Batch Number</label>
+    <input id="batch" placeholder="e.g. MUM12345" style="width:60%;">
+
+    <label class="label">Manufacturing Date</label>
+    <input id="mfg" type="date" style="width:60%;">
+
+    <div style="margin-top:12px;">
+      <button id="checkBtn">Check Bottle</button>
+      <button id="clearBtn" style="background:#f4f8fb;color:#1e415b;border:1px solid #dce9ee;">Clear</button>
+    </div>
+
+    <div id="result" class="result" style="display:none;"></div>
+  </div>
+</div>
+
+<script>
+let plantMap = null;
+
+async function loadPlants(){
+  try{
+    const r = await fetch('plants.json', {cache: "no-store"});
+    if(r.ok){
+      plantMap = await r.json();
+    } else {
+      plantMap = null;
+    }
+  } catch(err){
+    plantMap = null;
+  }
+}
+
+function formatDate(iso){
+  if(!iso) return '';
+  const d = new Date(iso + 'T00:00:00');
+  if(isNaN(d)) return iso;
+  return d.toLocaleDateString(undefined, {day:'2-digit', month:'short', year:'numeric'});
+}
+
+document.getElementById('checkBtn').addEventListener('click', async ()=>{
+  await loadPlants();
+  const batchRaw = document.getElementById('batch').value.trim().toUpperCase();
+  const mfg = document.getElementById('mfg').value;
+  const result = document.getElementById('result');
+
+  if(!batchRaw){ result.style.display='block'; result.innerHTML='<b style="color:#b33;">Enter batch number.</b>'; return; }
+  if(!mfg){ result.style.display='block'; result.innerHTML='<b style="color:#b33;">Select manufacturing date.</b>'; return; }
+
+  const prefixMatch = batchRaw.match(/^[A-Z]{2,4}/);
+  const prefix = prefixMatch ? prefixMatch[0] : batchRaw.slice(0,3);
+  let plant = plantMap && plantMap[prefix] ? plantMap[prefix] : null;
+
+  if(!plant){
+    const alt2 = prefix.slice(0,2);
+    const alt4 = batchRaw.slice(0,4);
+    plant = plantMap && (plantMap[alt4] || plantMap[alt2]) ? (plantMap[alt4] || plantMap[alt2]) : null;
+  }
+
+  if(!plant){
+    result.style.display='block';
+    result.innerHTML = '<h3>Unknown Plant Code</h3><p class="small">The batch prefix was not recognized. Please check the code or contact <a href="contact.html">Customer Care</a>.</p>';
+    return;
+  }
+
+  const formattedDate = formatDate(mfg);
+
+  result.style.display='block';
+  result.innerHTML = '<h2>Manufacturer Details</h2>' +
+    '<p><strong>Name:</strong> ' + escapeHtml(plant.name) + '</p>' +
+    '<p><strong>License:</strong> ' + escapeHtml(plant.license) + '</p>' +
+    '<p><strong>Address:</strong> ' + escapeHtml(plant.address) + '</p>' +
+    '<p><strong>Contact:</strong> ' + escapeHtml(plant.contact) + '</p>' +
+    '<p><strong>Manufacturing Date:</strong> ' + formattedDate + '</p>';
+});
+
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  document.getElementById('batch').value=''; document.getElementById('mfg').value=''; document.getElementById('result').style.display='none';
+});
+
+function escapeHtml(s){
+  if(!s) return '';
+  return s.replace(/[&<>"]/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]; });
+}
+</script>
+</body>
+</html>
+
+<!-- NOTE: batch-enhancement not applied: couldn't find listener -->

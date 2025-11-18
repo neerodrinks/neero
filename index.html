@@ -81,10 +81,17 @@
 
     /* footer */
     footer{padding:36px 0;border-top:1px solid rgba(16,24,40,.03);margin-top:36px}
-    .footer-grid{display:flex;justify-content:space-between;gap:18px;align-items:center}
+    .footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;align-items:flex-start}
 
     /* accessibility / focus */
     a:focus, button:focus {outline:3px solid rgba(2,132,199,.14);outline-offset:3px}
+
+    /* features */
+    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;text-align:center;margin-top:36px}
+    .feature-item{padding:24px;background:var(--card);border-radius:var(--radius);box-shadow:0 10px 30px rgba(16,24,40,.04)}
+    .feature-icon{font-size:48px;margin-bottom:16px;color:var(--accent)}
+
+    .social-icon:hover{color:var(--accent)}
 
     /* responsive */
     @media (max-width:960px){.hero-grid{grid-template-columns:1fr 360px}.products-grid{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}.reviews-row{grid-template-columns:1fr}.header-glass{padding:8px}}
@@ -119,9 +126,9 @@
     <section class="hero wrap" id="home" aria-labelledby="hero-heading">
       <div class="hero-grid">
         <div>
-          <h1 id="hero-heading">Hydration, Reimagined.</h1>
-          <p>Experience purity, performance, and style — in every sip.</p>
-          <a class="cta" href="#products" role="button">Explore NEERO</a>
+          <h1 id="hero-heading">Pure Water, Pure You.</h1>
+          <p>Stay refreshed and revitalized with water sourced from the purest springs.</p>
+          <a class="cta" href="#products" role="button" style="background-color: var(--accent); color: white; padding: 14px 24px;">Buy Now</a>
         </div>
 
         <div style="width:100%;height:260px;border-radius:12px;overflow:hidden;background:#f6fafc;display:flex;justify-content:center;align-items:center;">
@@ -131,13 +138,37 @@
       </div>
     </section>
 
+    <section class="wrap" id="features">
+      <div style="text-align:center">
+        <h2>Why NEERO?</h2>
+        <p style="color:var(--muted)">Discover the features that make NEERO the last water bottle you’ll ever need.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">💧</div>
+          <h3>Pristine Sourcing</h3>
+          <p style="color:var(--muted)">Sourced from the purest mountain springs, our water is crisp, clean, and refreshing.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">♻️</div>
+          <h3>Eco-Friendly Bottle</h3>
+          <p style="color:var(--muted)">Our bottles are made from 100% recyclable materials, so you can hydrate responsibly.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">⚖️</div>
+          <h3>Perfectly Balanced pH</h3>
+          <p style="color:var(--muted)">With a balanced pH, our water is smooth, refreshing, and great for your body.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="wrap">
       <div class="card two-col" id="our-story" tabindex="-1">
         <div style="padding:20px">
           <!-- placeholder image block (replace src when you have product images) -->
           <div style="width:100%;height:260px;border-radius:12px;overflow:hidden;background:#f6fafc;display:flex;justify-content:center;align-items:center;">
-  <img src="neero.png" alt="Neero product"
-       style="max-width:100%;max-height:100%;object-fit:contain;">
+  <img src="https://images.unsplash.com/photo-1532550618057-94a28a7c3645" alt="Person enjoying Neero water in a natural setting"
+       style="width:100%;height:100%;object-fit:cover;">
 </div>
   </div>
 
@@ -242,7 +273,17 @@
     <footer class="wrap" id="contact">
       <div class="footer-grid" role="contentinfo">
         <div style="font-weight:700">NEERO</div>
-        <div style="color:var(--muted)">Home • Our Story • Products • Know Your Neero • Contact Us</div>
+        <div>
+          <p style="color:var(--muted); font-size:14px; max-width: 300px;">NEERO is dedicated to providing premium, sustainable hydration solutions that are kind to the planet.</p>
+        </div>
+        <div>
+          <p style="font-weight:600; margin-bottom:12px;">Follow Us</p>
+          <div style="display:flex; gap:12px;">
+            <a href="#" aria-label="Facebook" class="social-icon" style="color:var(--muted); font-size:20px; transition: color 0.2s;">f</a>
+            <a href="#" aria-label="Instagram" class="social-icon" style="color:var(--muted); font-size:20px; transition: color 0.2s;">i</a>
+            <a href="#" aria-label="Twitter" class="social-icon" style="color:var(--muted); font-size:20px; transition: color 0.2s;">t</a>
+          </div>
+        </div>
         <div style="text-align:right;color:var(--muted)">© 2025 NEERO • Made with 💙</div>
       </div>
     </footer>
@@ -255,21 +296,6 @@
     window.addEventListener('scroll', ()=>{
       if(window.scrollY>40) header.classList.add('scrolled'); else header.classList.remove('scrolled');
     });
-
-    // Bottle rotate on scroll (parallax-like interaction)
-    const bottle = document.getElementById('bottle');
-    function updateBottle(){
-      if(!bottle) return;
-      // rotate based on viewport scroll position for subtle effect
-      const rot = (window.scrollY/6) % 360;
-      // small tilt based on bottle position in viewport
-      const rect = bottle.getBoundingClientRect();
-      const tilt = ((rect.top - window.innerHeight/2) / 40);
-      bottle.style.transform = `rotateY(${rot}deg) translateZ(0) rotateX(${tilt}deg)`;
-    }
-    window.addEventListener('scroll', updateBottle);
-    window.addEventListener('resize', updateBottle);
-    updateBottle();
 
     // Simple reviews auto-scroll (loops)
     const strip = document.getElementById('review-strip');
@@ -323,9 +349,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-

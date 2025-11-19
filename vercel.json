@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/manufacturing-details",
+      "destination": "/manufacturing-details.html"
+    }
+  ]
+}

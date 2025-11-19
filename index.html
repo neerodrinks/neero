@@ -128,7 +128,7 @@
         
         .hero-image img { 
             max-width: 100%; 
-            height: auto;
+            height: 480px;
             margin-left: 0;
         }
         
@@ -373,6 +373,89 @@
         .flip-anim {
             transition: transform 320ms cubic-bezier(.2,.9,.3,1), opacity 220ms ease;
         }
+        /* ===========================
+           PRODUCTS SECTION (smaller cards)
+           =========================== */
+        .products {
+    margin-top: 24px;
+    background: white;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    text-align: left;
+}
+
+.products h3 {
+    font-size: 18px;
+    color: #02122b;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);  /* 6 cards in one row */
+    gap: 10px;
+    align-items: start;
+}
+
+.product-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #eef4f7;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.product-card a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-image {
+    width: 100%;
+    aspect-ratio: 2/3;   /* thinner, smaller images */
+    object-fit: cover;
+}
+
+.product-meta {
+    padding: 8px;
+}
+
+.product-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0b3146;
+    margin-bottom: 2px;
+}
+
+.product-sub {
+    font-size: 15px;
+    color: #6e8796;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 22px rgba(6,30,45,0.08);
+}
+
+/* responsive */
+@media (max-width: 1200px) {
+    .product-grid { grid-template-columns: repeat(5, 1fr); }
+}
+@media (max-width: 992px) {
+    .product-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 768px) {
+    .product-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 520px) {
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 380px) {
+    .product-grid { grid-template-columns: 1fr; }
+}
     </style>
 </head>
 <body>
@@ -417,7 +500,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="hero.png" alt="Neero Mineral Water Bottle">
+                <img src="ner.png" alt="Neero Mineral Water Bottle">
             </div>
         </section>
 
@@ -440,7 +523,58 @@
             <h2>Our Source</h2>
             <p>Neero water is sourced from natural springs, carefully filtered and bottled to preserve purity and freshness.</p>
         </section>
+        <!-- PRODUCTS SECTION -->
+        <section class="products">
+            <h3>Our Products</h3>
 
+            <div class="product-grid">
+
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <a href="Hyadration.html">
+                        <img class="product-image" src="pd1.png" alt="Neero 500ml">
+                        <div class="product-meta">
+                            <div class="product-title">Neero Fresh</div>
+                            <div class="product-sub">Everyday hydration water</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <a href="Refresh.html">
+                        <img class="product-image" src="pd2.png" alt="Neero 1 L">
+                        <div class="product-meta">
+                            <div class="product-title">Neero Premium</div>
+                            <div class="product-sub">Mineral rich</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <a href="products/product-3.html">
+                        <img class="product-image" src="ner.png" alt="Neero 20 L Can">
+                        <div class="product-meta">
+                            <div class="product-title">Neero Luxury</div>
+                            <div class="product-sub">Office & Events</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <a href="products/product-4.html">
+                        <img class="product-image" src="products/product-4.jpg" alt="Neero Special Pack">
+                        <div class="product-meta">
+                            <div class="product-title">Special Pack</div>
+                            <div class="product-sub">Limited Edition</div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </section>
         <section class="cta">
             <h2>Experience the Fresh<br>Taste of Neero</h2>
         </section>
@@ -599,6 +733,13 @@
                 });
             }
         })();
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
     </script>    
 </body>
 </html>

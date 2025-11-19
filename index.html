@@ -75,45 +75,79 @@
         
         header nav a:hover { text-decoration: underline; }
         
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 30px 0;
-            text-align: left;
-            flex-wrap: wrap;
-        }
-        
-        .hero-text { 
-            max-width: 520px;
-            margin-bottom: 30px;
-        }
-        
-        .hero-text h1 {
-            font-size: 56px;
-            font-weight: 600;
-            line-height: 1.1;
-            margin: 0;
-            color: #02122b;
-        }
-        
-        .hero-buttons { 
-            margin-top: 28px; 
-        }
-        
-        .hero-buttons .btn {
-            text-decoration: none;
-            padding: 12px 28px;
-            border-radius: 50px;
-            font-size: 15px;
-            font-weight: 600;
-            margin-right: 12px;
-            margin-bottom: 10px;
-            transition: transform 0.15s;
-            display: inline-block;
-        }
-        
-        .hero-buttons .btn:hover { transform: translateY(-2px); }
+        /* --- Replace existing .hero, .hero-text and .hero-image img rules with this --- */
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* keep text left, image right */
+    padding: 30px 0;
+    text-align: left;
+    gap: 40px;            /* space between text and image */
+    flex-wrap: wrap;
+}
+
+.hero-text {
+    flex: 1 1 48%;        /* text takes up to ~48% on wide screens */
+    min-width: 260px;     /* prevents text from squishing too much */
+    margin-bottom: 30px;
+}
+
+.hero-text h1 {
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 1.08;
+    margin: 0;
+    color: #02122b;
+}
+
+/* Image container sizing so it never gets huge */
+.hero-image {
+    flex: 0 0 44%;        /* image column about 44% of row on desktop */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+}
+
+/* control actual image size and scaling */
+.hero-image img {
+    width: 100%;
+    max-width: 420px;     /* <= change this number to make it smaller/larger */
+    height: auto;
+    display: block;
+    margin-left: 0;
+    object-fit: contain;
+}
+
+/* Mobile / small screens */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 0;
+        gap: 18px;
+    }
+
+    .hero-text {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+
+    .hero-image {
+        flex: 1 1 100%;
+    }
+
+    .hero-image img {
+        max-width: 320px;   /* smaller cap on phones */
+        width: 70%;
+    }
+
+    .hero-text h1 {
+        font-size: 40px;
+    }
+}
+
         
         .btn-primary { 
             background-color: #9cbfcf; 

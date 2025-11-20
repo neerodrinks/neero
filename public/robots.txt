@@ -1,11 +1,7 @@
 # robots.txt for https://neerobeverages.com
-# Generated: 2025-11-20 (advanced, production-ready)
+# Generated: 2025-11-20 (production-ready)
 # Purpose: allow rendering resources, block sensitive/dev paths, point to sitemap index.
-# NOTE: Use Search Console URL Parameters for fine-grained control of query strings.
 
-# -------------------------
-# Google (primary crawler)
-# -------------------------
 User-agent: Googlebot
 # Allow static assets required for rendering
 Allow: /css/
@@ -19,17 +15,13 @@ Disallow: /test/
 Disallow: /backup/
 Disallow: /private/
 Disallow: /tmp/
-# Block common tracking/duplicate params (treat as hints)
+# Block common tracking/duplicate params (treated as hints)
 Disallow: /*?*utm_
 Disallow: /*?replytocom
 Disallow: /*?*sessionid=
-# Allow AJAX admin endpoints if used
+# Allow specific AJAX admin endpoint if required
 Allow: /admin-ajax.php
-Crawl-delay: 0
 
-# -------------------------
-# Bing
-# -------------------------
 User-agent: bingbot
 Allow: /css/
 Allow: /js/
@@ -39,9 +31,6 @@ Disallow: /staging/
 Disallow: /test/
 Crawl-delay: 10
 
-# -------------------------
-# Yandex
-# -------------------------
 User-agent: Yandex
 Allow: /css/
 Allow: /js/
@@ -50,9 +39,6 @@ Disallow: /admin/
 Disallow: /staging/
 Crawl-delay: 10
 
-# -------------------------
-# Generic bots (all others)
-# -------------------------
 User-agent: *
 Allow: /css/
 Allow: /js/
@@ -68,11 +54,5 @@ Disallow: /search
 Disallow: /*?*utm_
 Disallow: /*?replytocom
 
-# Optional polite rate-limit hint for unknown crawlers (not enforced by major engines)
-# Note: major search engines ignore this but some smaller bots respect it.
-# Crawl-delay: 10
-
-# -------------------------
-# Sitemap index (point to sitemap index for multi-sitemap setups)
-# -------------------------
+# Sitemap index
 Sitemap: https://neerobeverages.com/sitemap_index.xml

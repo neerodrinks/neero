@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://neerobeverages.com/products/neero-1l-bottle</loc>
+    <lastmod>2025-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://neerobeverages.com/images/neero-1l.jpg</image:loc>
+      <image:caption>Neero 1L Mineral Water Bottle</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://neerobeverages.com/products/neero-500ml-pouch</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://neerobeverages.com/images/neero-500ml.jpg</image:loc>
+      <image:caption>Neero 500ml Pack</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Add more product <url> entries here as needed -->
+</urlset>

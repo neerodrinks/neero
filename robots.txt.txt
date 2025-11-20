@@ -1,0 +1,53 @@
+# robots.txt for https://neerobeverages.com
+# Last updated: 2025-11-20
+# Advanced rules: allow rendering resources, block dev/admin, point to sitemap index.
+
+User-agent: Googlebot
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /assets/
+Disallow: /admin/
+Disallow: /staging/
+Disallow: /test/
+Disallow: /backup/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /*?*utm_
+Disallow: /*?replytocom
+Crawl-delay: 0
+
+User-agent: bingbot
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Disallow: /admin/
+Disallow: /staging/
+Disallow: /test/
+Crawl-delay: 10
+
+User-agent: Yandex
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Disallow: /admin/
+Disallow: /staging/
+Crawl-delay: 10
+
+User-agent: *
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /assets/
+Disallow: /admin/
+Disallow: /staging/
+Disallow: /test/
+Disallow: /backup/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /search
+Disallow: /*?*utm_
+Disallow: /*?replytocom
+
+# Sitemap index (point to the sitemap index)
+Sitemap: https://neerobeverages.com/sitemap_index.xml

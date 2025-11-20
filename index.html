@@ -34,6 +34,7 @@
             align-items: center;
             padding: 20px 0;
             flex-wrap: wrap;
+            position: relative;
         }
         
         header .logo {
@@ -49,6 +50,7 @@
             flex-direction: column;
             cursor: pointer;
             padding: 5px;
+            z-index: 1001;
         }
         
         .menu-toggle span {
@@ -126,10 +128,16 @@
             border: 1px solid #dce9ee;
         }
         
+        .hero-image { 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
         .hero-image img { 
             max-width: 100%; 
-            height: 480px;
-            margin-left: 0;
+            height: auto;
+            max-height: 480px;
         }
         
         .features {
@@ -280,18 +288,25 @@
             }
             
             header {
-                flex-direction: column;
+                flex-direction: row;
                 padding: 15px 0;
             }
             
             header .logo {
-                margin-bottom: 15px;
+                margin-bottom: 0;
             }
             
             nav {
                 flex-direction: column;
                 width: 100%;
                 display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                background: white;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                z-index: 1000;
+                padding: 15px 0;
             }
             
             nav.active {
@@ -301,15 +316,15 @@
             header nav a {
                 margin: 10px 0;
                 text-align: center;
-                padding: 8px 0;
+                padding: 12px 0;
                 border-bottom: 1px solid #f0f0f0;
+                margin-left: 0;
+                width: 100%;
             }
             
             .menu-toggle {
                 display: flex;
-                position: absolute;
-                top: 20px;
-                right: 20px;
+                position: static;
             }
             
             .hero {
@@ -324,6 +339,21 @@
             
             .hero-text {
                 margin-bottom: 20px;
+            }
+            
+            /* FIX: Center the hero image on mobile */
+            .hero-image {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+            
+            .hero-image img {
+                height: auto;
+                max-height: 350px;
+                width: auto;
+                max-width: 90%;
             }
             
             .features {
@@ -366,6 +396,11 @@
                 display: block;
                 margin: 10px 0;
                 width: 100%;
+            }
+            
+            /* Further adjustments for very small screens */
+            .hero-image img {
+                max-height: 280px;
             }
         }
 
@@ -590,7 +625,8 @@
             const menuToggle = document.getElementById('menuToggle');
             const mainNav = document.getElementById('mainNav');
             
-            menuToggle.addEventListener('click', function() {
+            menuToggle.addEventListener('click', function(event) {
+                event.stopPropagation();
                 mainNav.classList.toggle('active');
             });
             
@@ -599,6 +635,14 @@
                 if (!menuToggle.contains(event.target) && !mainNav.contains(event.target)) {
                     mainNav.classList.remove('active');
                 }
+            });
+            
+            // Close menu when clicking on a link
+            const navLinks = mainNav.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mainNav.classList.remove('active');
+                });
             });
         });
 
@@ -647,99 +691,71 @@
                     const lr = lastRects.get(el);
                     const dx = fr.left - lr.left;
                     const dy = fr.top - lr.top;
-                    // set immediate transform to offset by dx,dy
                     el.style.transform = `translate(${dx}px, ${dy}px)`;
-                    el.style.transition = 'none';
-                    // ensure we use the flip-anim class for transition to 0
-                    requestAnimationFrame(() => {
-                        el.classList.add('flip-anim');
-                        el.style.transform = '';
-                        // after transition clears, remove the class to keep DOM clean
-                        const clear = () => {
-                            el.classList.remove('flip-anim');
-                            el.removeEventListener('transitionend', clear);
-                        };
-                        el.addEventListener('transitionend', clear);
-                    });
+                    el.classList.add('flip-anim');
                 });
-            }
 
-            // Perform staggered jump wave
-            async function performJumpWave() {
-                const stagger = 90; // ms
-                for (let i = 0; i < letters.length; i++) {
-                    if (!running) return;
-                    const el = letters[i];
-                    el.classList.remove('jumping');
-                    // force reflow to allow re-adding the class reliably
-                    // eslint-disable-next-line no-unused-expressions
-                    el.offsetWidth;
-                    el.classList.add('jumping');
-                    // wait a bit before next letter
-                    await wait(stagger);
-                }
-                // let last animations settle
-                await wait(320);
-            }
+                // force reflow
+                lettersContainer.offsetHeight;
 
-            // Main loop: jump wave -> small pause -> shuffle (FLIP) -> pause -> repeat
-            async function loop() {
-                if (prefersReduced) return;
-                while (running) {
-                    await performJumpWave();
-                    if (!running) break;
-                    // small pause before shuffle
-                    await wait(380);
-                    if (!running) break;
+                // animate to final position
+                letters.forEach(el => {
+                    el.style.transform = '';
+                });
 
-                    // determine new order and call FLIP
-                    const curOrder = letters.map(el => el.textContent);
-                    const shuffled = randomShuffleOrder(letters.slice());
-                    // shuffled is an array of elements; apply FLIP
-                    flipReorder(shuffled);
-
-                    // short pause before next cycle
-                    await wait(500 + Math.floor(Math.random() * 200));
-                }
-            }
-
-            // Start the loop (unless reduced motion)
-            if (!prefersReduced) {
-                loop().catch(console.error);
-            } else {
-                // Reduced motion: single subtle pulse on container
-                lettersContainer.style.opacity = '0.98';
-            }
-
-            // On page load finish -> stop animations and fade out loader
-            function finishLoader() {
-                running = false;
-                // fade out overlay
-                loader.classList.add('hidden');
-                // optional: remove from DOM after transition
+                // clean up after transition
                 setTimeout(() => {
-                    if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
-                }, 700);
+                    letters.forEach(el => {
+                        el.classList.remove('flip-anim');
+                        el.style.transform = '';
+                    });
+                }, 320);
             }
 
-            // If the page is already loaded (e.g., snippet inserted late)
-            if (document.readyState === 'complete') {
-                // small delay so user sees a tiny animation if they want
-                setTimeout(finishLoader, 220);
-            } else {
-                window.addEventListener('load', () => {
-                    // give a short buffer so last loop can finish smoothly
-                    setTimeout(finishLoader, 260);
+            // Main animation loop
+            async function animate() {
+                if (prefersReduced) return;
+
+                // initial jump
+                letters.forEach((l, i) => {
+                    setTimeout(() => {
+                        l.classList.add('jumping');
+                        setTimeout(() => l.classList.remove('jumping'), 560);
+                    }, i * 120);
                 });
-            }
-        })();
-        // Mobile Menu Toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const mainNav = document.getElementById('mainNav');
 
-        menuToggle.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-        });
-    </script>    
+                await wait(2000);
+
+                while (running) {
+                    // shuffle order
+                    const newOrder = randomShuffleOrder(letters);
+                    flipReorder(newOrder);
+
+                    await wait(1800);
+
+                    // jump again
+                    letters.forEach((l, i) => {
+                        setTimeout(() => {
+                            l.classList.add('jumping');
+                            setTimeout(() => l.classList.remove('jumping'), 560);
+                        }, i * 120);
+                    });
+
+                    await wait(2000);
+                }
+            }
+
+            // Hide loader after page load
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                    running = false;
+                }, 1800);
+            });
+
+            // Start animation
+            animate();
+        })();
+    </script>
 </body>
 </html>

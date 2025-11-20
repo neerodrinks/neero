@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- sitemap_index for https://neerobeverages.com -->
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Pages & static content -->
+  <sitemap>
+    <loc>https://neerobeverages.com/sitemap-pages.xml</loc>
+    <lastmod>2025-11-20</lastmod>
+  </sitemap>
+
+  <!-- Products (image-aware) -->
+  <sitemap>
+    <loc>https://neerobeverages.com/sitemap-products.xml</loc>
+    <lastmod>2025-11-20</lastmod>
+  </sitemap>
+
+  <!-- Images-only sitemap (optional; included if you maintain many image assets) -->
+  <sitemap>
+    <loc>https://neerobeverages.com/sitemap-images.xml</loc>
+    <lastmod>2025-11-20</lastmod>
+  </sitemap>
+</sitemapindex>

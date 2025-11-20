@@ -3,108 +3,439 @@
 <head>
     <title>Products - Neero</title>
     <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-    body {
-        font-family: 'Poppins', sans-serif;
-          background-image: url('bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;;
-        text-align: center;
-    }
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 28px 0;
-    }
-    header .logo {
-        font-size: 28px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        color: #02122b;
-    }
-    header nav a {
-        text-decoration: none;
-        color: #1e415b;
-        margin-left: 28px;
-        font-size: 16px;
-        font-weight: 500;
-    }
-    header nav a:hover { text-decoration: underline; }
-    .hero {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 50px 0;
-        text-align: left;
-    }
-    .hero-text { max-width: 520px; }
-    .hero-text h1 {
-        font-size: 56px;
-        font-weight: 600;
-        line-height: 1.1;
-        margin: 0;
-        color: #02122b;
-    }
-    .hero-buttons { margin-top: 28px; }
-    .hero-buttons .btn {
-        text-decoration: none;
-        padding: 12px 28px;
-        border-radius: 50px;
-        font-size: 15px;
-        font-weight: 600;
-        margin-right: 12px;
-        transition: transform 0.15s;
-    }
-    .hero-buttons .btn:hover { transform: translateY(-2px); }
-    .btn-primary { background-color: #9cbfcf; color: white; }
-    .btn-secondary {
-        background-color: #f4f8fb;
-        color: #1e415b;
-        border: 1px solid #dce9ee;
-    }
-    .hero-image img { max-width: 350px; margin-left: 40px; }
-    .features {
-        background-color: white;
-        border-radius: 16px;
-        padding: 28px;
-        margin-top: 40px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
-    .feature-item { display:flex; flex-direction:column; align-items:center; max-width:200px; }
-    .feature-item p { margin-top: 14px; font-size:15px; font-weight:500; color:#1e415b; }
-    .cta { padding: 80px 0; }
-    .cta h2 { font-size: 40px; font-weight:600; color:#02122b; margin: 0; }
-    footer { padding: 30px 0; color: #597a8f; font-size:14px; }
-    .content { text-align: left; padding: 40px; background: white; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.04); margin-top: 30px; }
-</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        
+        header .logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #02122b;
+        }
+        
+        /* Mobile navigation */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+        
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #1e415b;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        header nav a {
+            text-decoration: none;
+            color: #1e415b;
+            margin-left: 28px;
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        header nav a:hover { text-decoration: underline; }
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 0;
+            text-align: left;
+            flex-wrap: wrap;
+        }
+        
+        .hero-text { 
+            max-width: 520px;
+            margin-bottom: 30px;
+        }
+        
+        .hero-text h1 {
+            font-size: 56px;
+            font-weight: 600;
+            line-height: 1.1;
+            margin: 0;
+            color: #02122b;
+        }
+        
+        .hero-buttons { 
+            margin-top: 28px; 
+        }
+        
+        .hero-buttons .btn {
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-right: 12px;
+            margin-bottom: 10px;
+            transition: transform 0.15s;
+            display: inline-block;
+        }
+        
+        .hero-buttons .btn:hover { transform: translateY(-2px); }
+        
+        .btn-primary { 
+            background-color: #9cbfcf; 
+            color: white; 
+        }
+        
+        .btn-secondary {
+            background-color: #f4f8fb;
+            color: #1e415b;
+            border: 1px solid #dce9ee;
+        }
+        
+        .hero-image { 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero-image img { 
+            max-width: 100%; 
+            height: auto;
+            max-height: 480px;
+        }
+        
+        .features {
+            background-color: white;
+            border-radius: 16px;
+            padding: 28px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .feature-item { 
+            display:flex; 
+            flex-direction:column; 
+            align-items:center; 
+            max-width:200px; 
+            margin: 15px;
+        }
+        
+        .feature-item p { 
+            margin-top: 14px; 
+            font-size:15px; 
+            font-weight:500; 
+            color:#1e415b; 
+        }
+        
+        .cta { 
+            padding: 60px 0; 
+        }
+        
+        .cta h2 { 
+            font-size: 40px; 
+            font-weight:600; 
+            color:#02122b; 
+            margin: 0; 
+        }
+        
+        footer { 
+            padding: 30px 0; 
+            color: #597a8f; 
+            font-size:14px; 
+        }
+        
+        .content { 
+            text-align: left; 
+            padding: 30px; 
+            background: white; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04); 
+            margin-top: 30px; 
+        }
+        
+        .content h1 {
+            font-size: 36px;
+            color: #02122b;
+            margin-bottom: 20px;
+        }
+        
+        .content h3 {
+            font-size: 24px;
+            color: #1e415b;
+            margin: 25px 0 15px;
+        }
+        
+        .content p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #597a8f;
+            margin-bottom: 15px;
+        }
+        
+        .content ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .content li {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #597a8f;
+            margin-bottom: 10px;
+        }
+        
+        .content a {
+            color: #9cbfcf;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .content a:hover {
+            text-decoration: underline;
+        }
+        
+        /* PRODUCTS SECTION */
+        .products {
+            margin-top: 24px;
+            background: white;
+            padding: 16px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+            text-align: left;
+        }
 
+        .products h3 {
+            font-size: 18px;
+            color: #02122b;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            align-items: start;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #eef4f7;
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
+
+        .product-card a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+        }
+
+        .product-meta {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0b3146;
+            margin-bottom: 5px;
+        }
+
+        .product-sub {
+            font-size: 14px;
+            color: #6e8796;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 22px rgba(6,30,45,0.08);
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            header {
+                flex-direction: row;
+                padding: 15px 0;
+            }
+            
+            header .logo {
+                margin-bottom: 0;
+            }
+            
+            nav {
+                flex-direction: column;
+                width: 100%;
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                background: white;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                z-index: 1000;
+                padding: 15px 0;
+            }
+            
+            nav.active {
+                display: flex;
+            }
+            
+            header nav a {
+                margin: 10px 0;
+                text-align: center;
+                padding: 12px 0;
+                border-bottom: 1px solid #f0f0f0;
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .menu-toggle {
+                display: flex;
+                position: static;
+            }
+            
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 0;
+            }
+            
+            .hero-text h1 {
+                font-size: 40px;
+            }
+            
+            .hero-text {
+                margin-bottom: 20px;
+            }
+            
+            .features {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            .feature-item {
+                margin: 20px 0;
+            }
+            
+            .cta h2 {
+                font-size: 32px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .content h1 {
+                font-size: 30px;
+            }
+            
+            .content h3 {
+                font-size: 22px;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .hero-text h1 {
+                font-size: 32px;
+            }
+            
+            .cta h2 {
+                font-size: 28px;
+            }
+            
+            .hero-buttons .btn {
+                display: block;
+                margin: 10px 0;
+                width: 100%;
+            }
+            
+            .content h1 {
+                font-size: 26px;
+            }
+            
+            .content h3 {
+                font-size: 20px;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
-    <div class="logo">NEERO</div>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="manufacturing-details.html">Know Your Neero</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="about.html">About</a>
-    </nav>
-</header>
-
+            <div class="logo">NEERO</div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav id="mainNav">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="manufacturing-details.html">Know Your Neero</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="about.html">About</a>
+            </nav>
+        </header>
 
         <div class="content">
             <h1>Our Products</h1>
@@ -120,9 +451,79 @@
             <p><a href="contact.html">Contact us</a> to place orders or request bulk pricing.</p>
         </div>
 
+        <!-- PRODUCTS SECTION -->
+        <section class="products">
+            <h3>Our Products</h3>
+
+            <div class="product-grid">
+
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <a href="Hyadration.html">
+                        <img class="product-image" src="pd1.png" alt="Neero 500ml">
+                        <div class="product-meta">
+                            <div class="product-title">Neero Fresh</div>
+                            <div class="product-sub">500ml PET Bottle</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <a href="Refresh.html">
+                        <img class="product-image" src="pd2.png" alt="Neero 1 L">
+                        <div class="product-meta">
+                            <div class="product-title">Neero Premium</div>
+                            <div class="product-sub">1L PET Bottle</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <a href="products/product-3.html">
+                        <img class="product-image" src="ner.png" alt="Neero 750ml Glass">
+                        <div class="product-meta">
+                            <div class="product-title">Neero Luxury</div>
+                            <div class="product-sub">750ml Glass Bottle</div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
         <footer>
-            &copy; 2025 Neero Beverages
+            &copy; 2025 Neero Beverages — All rights reserved.
         </footer>
     </div>
+    
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const mainNav = document.getElementById('mainNav');
+            
+            menuToggle.addEventListener('click', function(event) {
+                event.stopPropagation();
+                mainNav.classList.toggle('active');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!menuToggle.contains(event.target) && !mainNav.contains(event.target)) {
+                    mainNav.classList.remove('active');
+                }
+            });
+            
+            // Close menu when clicking on a link
+            const navLinks = mainNav.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mainNav.classList.remove('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
